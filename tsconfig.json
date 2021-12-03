@@ -1,6 +1,66 @@
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "target": "ES2018",
+    "module": "commonjs",
+    "jsx": "react-native",
+    "allowJs": true,
+    "sourceMap": true,
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "@": [
+        "./"
+      ],
+      "constants/*": [
+        "constants/*"
+      ],
+      "containers/*": [
+        "containers/*"
+      ],
+      "modules/*": [
+        "modules/*"
+      ],
+      "navigation/*": [
+        "navigation/*"
+      ],
+      "screens/*": [
+        "screens/*"
+      ],
+      "services/*": [
+        "services/*"
+      ],
+      "models/*": [
+        "models/*"
+      ],
+      "utils/*": [
+        "utils/*"
+      ],
+      "config/*": [
+        "config/*"
+      ],
+    },
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "importHelpers": true,
+    "esModuleInterop": true,
+    "pretty": true,
+    "skipLibCheck": true,
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "extends": "expo/tsconfig.base"
 }
