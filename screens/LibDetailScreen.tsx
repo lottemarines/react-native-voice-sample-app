@@ -1,5 +1,5 @@
-import React, { Component } from "react"
-import { Dimensions, TextInput, StyleSheet, SafeAreaView, Modal } from "react-native"
+import React from "react"
+import { Dimensions, TextInput, StyleSheet, SafeAreaView } from "react-native"
 import { Card, Button } from 'react-native-elements'
 import { colorCodes } from 'constants/colors'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -24,10 +24,9 @@ const styles = StyleSheet.create({
   fixBanner: {position: 'absolute', bottom: 0},
 });
 
-export default class LibDetail extends Component {
+export const LibDetailScreen = (props: any) => {
 
-  render() {
-    const data = this.props.route.params
+    const data = props.route.params
     const message = '＊＊＊Lv.' + data.level + 'に到達！！＊＊＊\n 論破アイテム「' + data.title + '」\n #ひろゆき #ひろゆきサウンド　\n' + AppURL
     return (
       <SafeAreaView>
@@ -57,5 +56,4 @@ export default class LibDetail extends Component {
         </KeyboardAwareScrollView>
       </SafeAreaView>
     );
-  }
 }

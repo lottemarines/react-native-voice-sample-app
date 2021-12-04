@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { Dimensions,Platform,SafeAreaView,StyleSheet,View,ScrollView } from 'react-native';
 import { ENV } from "config/env"
 import { isset } from "utils/validator"
@@ -13,25 +13,23 @@ const AdMobBunnerId = Platform.OS === 'ios' ? ENV.AdMobBunnerId_iOS : ENV.AdMobB
 const screenWidthSize = Dimensions.get('window').width
 const itemWidth = (screenWidthSize - 20)
 const itemHeight = (Dimensions.get('window').height) / 4
-export default class MyPageScreen extends React.Component {
-  state = {counts: 0, isOpen: false}
-  componentDidMount = () => this._unsubscribe = this.props.navigation.addListener('focus', () => this.getItems());
-  componentWillUnmount= () => this._unsubscribe();
 
-  getItems = async () => {
+export const MyPageScreen = (props: any) => {
+  const [counts, setCounts] = useState<number>(0)
+
+  useEffect(() => { getItems() }, [])
+
+  const getItems = async () => {
     const count_value = await AsyncStorage.getItem('counts');
-    this.setState({counts: count_value });
+    setCounts(Number(count_value))
   }
-  handlClick = (flag: string) => {
+  const handlClick = (flag: string) => {
     flag == 'review' && reviewing()
     flag == 'share' && sharing()
   }
-  openNoticeModal = () => this.setState({isOpen: !this.state.isOpen})
 
-  navigateLib = () => this.props.navigation.navigate('Lib')
+  const navigateLib = () => props.navigation.navigate('Lib')
 
-  render() {
-    const {counts} = this.state
     const cardTitle = "論破レベル"
     const levelText = `Lv.${isset(counts) ? counts : 0 }`
     return (
@@ -43,18 +41,18 @@ export default class MyPageScreen extends React.Component {
             price={levelText}
             info={['なんか', 'そうゆう', 'データあるんですか？']}
             button={{ title: '論破アイテムGET！' }}
-            onButtonPress={()=>this.navigateLib()}
+            onButtonPress={()=>navigateLib()}
           />
           <Button
             titleStyle={styles.buttonText}
             buttonStyle={styles.listItem}
-            onPress={()=>this.handlClick('share')}
+            onPress={()=>handlClick('share')}
             title={'シェアしてもらってもいいっすか？'}
           />
           <Button
             titleStyle={styles.buttonText}
             buttonStyle={styles.listItem}
-            onPress={()=>this.handlClick('review')}
+            onPress={()=>handlClick('review')}
             title={'感想・ボイスのリクエスト\n（それってあなたの感想ですよね？）'}
           />
           <NoticeModal triger={"button"}/>
@@ -63,11 +61,9 @@ export default class MyPageScreen extends React.Component {
           style={styles.fixBanner}
           bannerSize="smartBannerPortrait"
           adUnitID={AdMobBunnerId}
-          onAdMobDispatchAppEvent={this.adMobEvent}
         />
       </SafeAreaView>
     );
-  }
 }
 
 const styles = StyleSheet.create({
