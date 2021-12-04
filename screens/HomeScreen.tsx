@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import {SafeAreaView, StyleSheet} from 'react-native';
 import { requestPermissionsAsync } from 'expo-ads-admob';
 import {homeData1} from "data/homeData1";
@@ -13,19 +13,16 @@ import NetInfo from "@react-native-community/netinfo";
 import {NoticeModal} from 'components/modal/notice_modal'
 import GlobalActivityIndicator from 'components/atoms/GlobalActivityIndicator'
 
-export default class HomeScreen extends React.Component {
-  state = {
-    isConnected: true,
-    isNoticed: false,
-  }
-  componentDidMount = () => {
+export const HomeScreen = () => {
+  const [isConnected, setIsConnected] = useState<boolean>(true)
+  const [isNoticedState, setIsNoticedState] = useState<boolean>(false)
+  useEffect(() => {
     requestPermissionsAsync();
-    this._unsubscribe = this.props.navigation.addListener('focus', () => this.checkStatus());
-  }
-  componentWillUnmount= () => this._unsubscribe();
+    checkStatus();
+  }, [])
 
-  handlClick = (musicItem: any) => {
-    this.checkNet()
+  const handlClick = (musicItem: any) => {
+    checkNet()
     startingAd() ? Interstitial() :
       makeSound(musicItem)
       showReviewWindows()
@@ -33,22 +30,22 @@ export default class HomeScreen extends React.Component {
     ;
   }
 
-  checkStatus = async () => {
+  const checkStatus = async () => {
     const isNoticeValue = await isNoticed()
-    this.setState({isNoticed: isNoticeValue})
-    this.checkNet()
+    setIsNoticedState(isNoticeValue)
+    checkNet()
   }
 
-  checkNet = async () => {
+  const checkNet = async () => {
     NetInfo.fetch().then(state => {
       if (state.isConnected == false) {
-        this.setState({isConnected: false})
+        // this.setState({isConnected: false})
+        setIsConnected(false)
       }
     });
   }
   
-  render() {
-    if ( this.state.isConnected === false ){ return (<GlobalActivityIndicator/>) }
+    if ( isConnected === false ){ return (<GlobalActivityIndicator/>) }
     return (
       <SafeAreaView style={styles.container}>
         <ScrollableTabView
@@ -64,14 +61,13 @@ export default class HomeScreen extends React.Component {
         >
           <VoiceList
             tabLabel="1"
-            handlClick={this.handlClick}
+            handlClick={handlClick}
             voice_data={homeData1()}
           />
         </ScrollableTabView>
-        <NoticeModal isVisible={this.state.isNoticed} />
+        <NoticeModal isVisible={isNoticedState} />
       </SafeAreaView>
   );
-  }
 }
 
 const styles = StyleSheet.create({
