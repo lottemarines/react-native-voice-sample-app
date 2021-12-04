@@ -1,26 +1,28 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, ActivityIndicator } from 'react-native';
+import React, { useState, useEffect } from "react";
+import {SafeAreaView, StyleSheet} from 'react-native';
 import { requestPermissionsAsync } from 'expo-ads-admob';
 import {homeData1} from "data/homeData1";
 import {startingAd,showReviewWindows,calcCounts} from "utils/mathHelper";
 import {Interstitial} from "utils/adHelper";
 import {makeSound} from "utils/soundHelper";
+import {isNoticed} from "utils/validator";
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import VoiceList from "components/lists/VoiceList";
 import { colorCodes } from 'constants/colors'
 import NetInfo from "@react-native-community/netinfo";
+import {NoticeModal} from 'components/modal/notice_modal'
 import GlobalActivityIndicator from 'components/atoms/GlobalActivityIndicator'
 
-export default class CareerScreen extends React.Component {
-  state = {isConnected: true}
-  componentDidMount = () => {
+export const CareerScreen = () => {
+  const [isConnected, setIsConnected] = useState<boolean>(true)
+  const [isNoticedState, setIsNoticedState] = useState<boolean>(false)
+  useEffect(() => {
     requestPermissionsAsync();
-    this._unsubscribe = this.props.navigation.addListener('focus', () => this.checkNet());
-  }
-  componentWillUnmount= () => this._unsubscribe();
+    checkStatus();
+  }, [])
 
-  handlClick = (musicItem: any) => {
-    this.checkNet()
+  const handlClick = (musicItem: any) => {
+    checkNet()
     startingAd() ? Interstitial() :
       makeSound(musicItem)
       showReviewWindows()
@@ -28,16 +30,21 @@ export default class CareerScreen extends React.Component {
     ;
   }
 
-  checkNet = () => {
+  const checkStatus = async () => {
+    const isNoticeValue = await isNoticed()
+    setIsNoticedState(isNoticeValue)
+    checkNet()
+  }
+
+  const checkNet = async () => {
     NetInfo.fetch().then(state => {
       if (state.isConnected == false) {
-        this.setState({isConnected: false})
+        setIsConnected(false)
       }
     });
   }
   
-  render() {
-    if ( this.state.isConnected === false ){ return (<GlobalActivityIndicator/>) }
+    if ( isConnected === false ){ return (<GlobalActivityIndicator/>) }
     return (
       <SafeAreaView style={styles.container}>
         <ScrollableTabView
@@ -53,13 +60,13 @@ export default class CareerScreen extends React.Component {
         >
           <VoiceList
             tabLabel="1"
-            handlClick={this.handlClick}
+            handlClick={handlClick}
             voice_data={homeData1()}
           />
         </ScrollableTabView>
+        <NoticeModal isVisible={isNoticedState} />
       </SafeAreaView>
-    );
-  }
+  );
 }
 
 const styles = StyleSheet.create({

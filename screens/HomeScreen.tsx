@@ -39,7 +39,6 @@ export const HomeScreen = () => {
   const checkNet = async () => {
     NetInfo.fetch().then(state => {
       if (state.isConnected == false) {
-        // this.setState({isConnected: false})
         setIsConnected(false)
       }
     });

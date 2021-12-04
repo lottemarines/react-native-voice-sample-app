@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { HomeScreen } from 'screens/HomeScreen'
 import LongVoiceScreen from 'screens/LongVoiceScreen'
-import CareerScreen from 'screens/CareerScreen'
+import { CareerScreen } from 'screens/CareerScreen'
 import MyPageScreen from 'screens/MyPageScreen'
 import LibScreen from 'screens/Lib'
 import LibDetailScreen from 'screens/LibDetail'
