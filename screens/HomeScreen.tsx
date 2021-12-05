@@ -7,7 +7,7 @@ import {Interstitial} from "utils/adHelper";
 import {makeSound} from "utils/soundHelper";
 import {isNoticed} from "utils/validator";
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
-import VoiceList from "components/lists/VoiceList";
+import { VoiceList } from "components/organisms/VoiceList";
 import { colorCodes } from 'constants/colors'
 import NetInfo from "@react-native-community/netinfo";
 import {NoticeModal} from 'components/modal/notice_modal'

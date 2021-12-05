@@ -15,4 +15,10 @@ export default {
     activeBackgroundColor: '#f5ffa8',
     passiveBackgroundColor: '#ffffff',
   },
+  buttons: {
+    backgroundColor: '#d0dba2',
+    titleColor: 'black',
+    disabledBackgroundColor: 'black',
+    disabledTitleColor: 'white',
+  }
 }
