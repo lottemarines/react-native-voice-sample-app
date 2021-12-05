@@ -8,7 +8,7 @@ import {makeSound} from "utils/soundHelper";
 import {isNoticed} from "utils/validator";
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import { VoiceList } from "components/organisms/VoiceList";
-import { colorCodes } from 'constants/colors'
+import colors, { colorCodes } from 'constants/colors'
 import NetInfo from "@react-native-community/netinfo";
 import {NoticeModal} from 'components/modal/notice_modal'
 import GlobalActivityIndicator from 'components/atoms/GlobalActivityIndicator'
@@ -83,9 +83,9 @@ const styles = StyleSheet.create({
     width: '100%', // NOTE: Androidでタブが消えてしまうため、設置
     height: 48,
     borderBottomWidth: 0,
-    backgroundColor: colorCodes.totalColor,
+    backgroundColor: colors.tabs.activeBackgroundColor,
   },
   underline: {
-    backgroundColor: colorCodes.activeColor,
+    backgroundColor: colors.tabs.underlineColor,
   },
 });

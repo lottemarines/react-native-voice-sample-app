@@ -1,22 +1,23 @@
 export const colorCodes = {
-  totalColor: '#FFFFCC',
-  activeColor: '#dec5a6',
-  passiveColor: '#ebf0c7'
+  totalColor: '#363636',
+  activeColor: '#9c958c',
+  passiveColor: '#d0d1c9'
 }
 
 // colors.tabs...と使う
 export default {
   ...colorCodes,
   headers: {
-    activeColor: '#dae33b',
+    activeColor: '#d69494',
   },
   tabs: {
-    activeColor: '#959c17',
-    activeBackgroundColor: '#f5ffa8',
+    activeColor: '#542f1f',
+    activeBackgroundColor: '#ffa8a8',
     passiveBackgroundColor: '#ffffff',
+    underlineColor: '#bd6464',
   },
   buttons: {
-    backgroundColor: '#d0dba2',
+    backgroundColor: '#dba7a2',
     titleColor: 'black',
     disabledBackgroundColor: 'black',
     disabledTitleColor: 'white',
