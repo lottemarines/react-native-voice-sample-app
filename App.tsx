@@ -11,6 +11,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from 'constants/colors'
+import i18n from 'constants/i18n/translations';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,7 +34,7 @@ const tabOption = {
 const HomeStacks = () => {
   return (
     <Stack.Navigator initialRouteName="Home" screenOptions={stackOption}>
-      <Stack.Screen options={{title:"サンプルプロジェクト"}} name="Home" component={HomeScreen}　/>
+      <Stack.Screen options={{title: i18n.t('test')}} name="Home" component={HomeScreen}　/>
     </Stack.Navigator>
   );
 }
