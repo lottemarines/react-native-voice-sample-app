@@ -1,18 +1,15 @@
 import Constants from 'expo-constants';
 const ENVs = {
   dev: {
-    environment: "dev",
-    BaseApiUrl: "http://" + process.env.API_IP + ":4000",
-    UserEndpoint: "/api/v1/auth",
     // AdMob
     AdMobBunnerId_iOS:"ca-app-pub-3940256099942544/6300978111",
     AdMobBunnerId_Android:"ca-app-pub-3940256099942544/6300978111",
-    AdMobScreenId_iOS:"",
-    AdMobScreenId_Android:"",
+    AdMobScreenId_iOS:"ca-app-pub-3940256099942544/1033173712",
+    AdMobScreenId_Android:"ca-app-pub-3940256099942544/1033173712",
+    AdMobRewardId_iOS:"ca-app-pub-3940256099942544/1712485313",
+    AdMobRewardId_Android:"ca-app-pub-3940256099942544/5224354917",
     },
   production: {
-    environment: "production",
-    BaseApiUrl: "http://",
     // AdMob
     AdMobBunnerId_iOS:"",
     AdMobBunnerId_Android:"",
@@ -21,7 +18,7 @@ const ENVs = {
   },
 };
 function getEnvs() {
-  const channel = Constants.manifest.releaseChannel;
+  const channel = Constants.manifest?.releaseChannel;
 
   if (channel === "production") {
     return ENVs.production;
