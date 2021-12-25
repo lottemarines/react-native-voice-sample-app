@@ -14,6 +14,6 @@ $ cd [作りたい名前]
 $ cp config/env.sample.ts config/env.ts
 $ rm -rf node_module && yarn
 $ git remote rm origin
-$ git remote add origin git@github.com:
+$ git remote add origin git@github.com:*****.git
 $ git push -u origin master
 ```
