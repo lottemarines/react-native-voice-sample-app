@@ -4,7 +4,7 @@ import { ENV } from "config/env"
 import { isset } from "utils/validator"
 import { PricingCard,Button } from 'react-native-elements'
 import { PublisherBanner } from 'expo-ads-admob'
-import { colorCodes } from 'constants/colors'
+import colors, { colorCodes } from 'constants/colors'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { sharing, reviewing } from 'utils/storeHelper'
 import {NoticeModal} from 'components/modal/notice_modal'
@@ -45,13 +45,13 @@ export const MyPageScreen = (props: any) => {
           />
           <Button
             titleStyle={styles.buttonText}
-            buttonStyle={styles.listItem}
+            buttonStyle={styles.button}
             onPress={()=>handlClick('share')}
             title={'シェアしてもらってもいいっすか？'}
           />
           <Button
             titleStyle={styles.buttonText}
-            buttonStyle={styles.listItem}
+            buttonStyle={styles.button}
             onPress={()=>handlClick('review')}
             title={'感想・ボイスのリクエスト\n（それってあなたの感想ですよね？）'}
           />
@@ -79,12 +79,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'black'
   },
-  listItem: {
-    backgroundColor: '#d0dba2',
+  button: {
+    backgroundColor: colors.buttons.backgroundColor,
     flexGrow: 1,
     margin: 15,
     padding: 0,
-    width: itemWidth,
+    width: itemWidth-25,
     height: itemHeight/3,
     borderRadius: 20,
     overflow: 'hidden'
