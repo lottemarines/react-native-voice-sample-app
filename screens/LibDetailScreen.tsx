@@ -10,7 +10,7 @@ const imageWidth = (screenWidthSize - 20) * 1/2
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colorCodes.totalColor,
+    backgroundColor: colorCodes.backgroundColor,
     flex: 1,
   },
   cardBody: {

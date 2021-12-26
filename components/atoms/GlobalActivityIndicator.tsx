@@ -16,7 +16,7 @@ const GlobalActivityIndicator = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colorCodes.totalColor,
+    backgroundColor: colorCodes.backgroundColor,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

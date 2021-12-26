@@ -1,5 +1,5 @@
 export const colorCodes = {
-  totalColor: '#363636',
+  backgroundColor: '#363636',
   activeColor: '#9c958c',
   passiveColor: '#d0d1c9'
 }

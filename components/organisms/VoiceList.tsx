@@ -53,7 +53,7 @@ export const VoiceList = (props: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colorCodes.totalColor,
+    backgroundColor: colorCodes.backgroundColor,
     flex: 1,
   },
   text: {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     color: colors.buttons.titleColor,
   },
   body: {
-    backgroundColor: colorCodes.totalColor,
+    backgroundColor: colorCodes.backgroundColor,
   },
   sectionContainer: {
     padding: 8,

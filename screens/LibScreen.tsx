@@ -48,7 +48,7 @@ export const LibScreen = (props: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colorCodes.totalColor,
+    backgroundColor: colorCodes.backgroundColor,
     flex: 1,
   },
   listitem: {
