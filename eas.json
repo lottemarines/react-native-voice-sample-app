@@ -1,0 +1,43 @@
+{
+  "cli": {
+    "version": ">= 0.45.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "releaseChannel": "dev",
+      "android": {
+        "gradleCommand": "bundleDebug"
+      },
+      "ios": {
+        "buildConfiguration": "Debug"
+      }
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "releaseChannel": "production",
+      "android": {
+        "gradleCommand": "bundleRelease"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "lottemarines3@gmail.com",
+        "ascAppId": "",
+        "appleTeamId": "WQU45FND6W",
+        "sku": "",
+        "language": "ja-JP"
+      },
+      "android": {
+        "track": "production",
+        "releaseStatus": "draft",
+        "serviceAccountKeyPath": "/Users/ken/.ssh/keys/android_coffret_api_keys_pc-api-8895803862658026362-136-521bde8f3ffe.json"
+      }
+    }
+  }
+}

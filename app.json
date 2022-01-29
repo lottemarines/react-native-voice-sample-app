@@ -3,6 +3,7 @@
     "name": "サンプル",
     "slug": "voice-sample-app",
     "version": "1.0.0",
+    "jsEngine": "hermes",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -13,15 +14,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "config": {
-        "usesNonExemptEncryption": false,
+        "usesNonExemptEncryption": false
       },
       "buildNumber": "1",
-      "supportsTablet": false,
+      "supportsTablet": false
     },
     "android": {
       "permissions": [],
