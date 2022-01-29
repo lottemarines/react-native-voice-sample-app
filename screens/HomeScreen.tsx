@@ -1,86 +1,82 @@
 import React, { useState, useEffect } from "react";
-import {SafeAreaView, StyleSheet} from 'react-native';
-import { requestPermissionsAsync } from 'expo-ads-admob';
-import {homeData1} from "data/homeData1";
-import {startingAd,showReviewWindows,calcCounts} from "utils/mathHelper";
-import {Interstitial} from "utils/adHelper";
-import {makeSound} from "utils/soundHelper";
-import {isNoticed} from "utils/validator";
-import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
+import { SafeAreaView, StyleSheet } from "react-native";
+// import { requestPermissionsAsync } from "expo-ads-admob";
+import { homeData1 } from "data/homeData1";
+import { startingAd, showReviewWindows, calcCounts } from "utils/mathHelper";
+import { Interstitial } from "utils/adHelper";
+import { makeSound } from "utils/soundHelper";
+import ScrollableTabView, {
+  DefaultTabBar,
+} from "react-native-scrollable-tab-view";
 import { VoiceList } from "components/organisms/VoiceList";
-import colors, { colorCodes } from 'constants/colors'
+import colors, { colorCodes } from "constants/colors";
 import NetInfo from "@react-native-community/netinfo";
-import {NoticeModal} from 'components/modal/notice_modal'
-import GlobalActivityIndicator from 'components/atoms/GlobalActivityIndicator'
+import GlobalActivityIndicator from "components/atoms/GlobalActivityIndicator";
 
 export const HomeScreen = () => {
-  const [isConnected, setIsConnected] = useState<boolean>(true)
-  const [isNoticedState, setIsNoticedState] = useState<boolean>(false)
+  const [isConnected, setIsConnected] = useState<boolean>(true);
   useEffect(() => {
-    requestPermissionsAsync();
+    // requestPermissionsAsync();
     checkStatus();
-  }, [])
+  }, []);
 
   const handlClick = (musicItem: any) => {
-    checkNet()
-    startingAd() ? Interstitial() :
-      makeSound(musicItem)
-      showReviewWindows()
-      calcCounts()
-    ;
-  }
+    checkNet();
+    startingAd() ? Interstitial() : makeSound(musicItem);
+    showReviewWindows();
+    calcCounts();
+  };
 
   const checkStatus = async () => {
-    const isNoticeValue = await isNoticed()
-    setIsNoticedState(isNoticeValue)
-    checkNet()
-  }
+    await checkNet();
+  };
 
   const checkNet = async () => {
-    NetInfo.fetch().then(state => {
+    NetInfo.fetch().then((state) => {
       if (state.isConnected == false) {
-        setIsConnected(false)
+        setIsConnected(false);
       }
     });
+  };
+
+  if (isConnected === false) {
+    return <GlobalActivityIndicator />;
   }
-  
-    if ( isConnected === false ){ return (<GlobalActivityIndicator/>) }
-    return (
-      <SafeAreaView style={styles.container}>
-        <ScrollableTabView
-          renderTabBar={() => (
-            <DefaultTabBar
-              style={styles.tabs}
-              tabStyle={styles.tab}
-              underlineStyle={styles.underline}
-              activeTextColor="black"
-              inactiveTextColor="black"
-            />
-          )}
-        >
-          <VoiceList
-            tabLabel="1"
-            handlClick={handlClick}
-            voice_data={homeData1()}
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollableTabView
+        renderTabBar={() => (
+          <DefaultTabBar
+            style={styles.tabs}
+            tabStyle={styles.tab}
+            underlineStyle={styles.underline}
+            activeTextColor="black"
+            inactiveTextColor="black"
           />
-        </ScrollableTabView>
-        <NoticeModal isVisible={isNoticedState} />
-      </SafeAreaView>
+        )}
+      >
+        <VoiceList
+          tabLabel="1"
+          handlClick={handlClick}
+          voice_data={homeData1()}
+        />
+      </ScrollableTabView>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colorCodes.backgroundColor,
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   tab: {
     paddingBottom: 0,
   },
   tabs: {
-    width: '100%', // NOTE: Androidでタブが消えてしまうため、設置
+    width: "100%", // NOTE: Androidでタブが消えてしまうため、設置
     height: 48,
     borderBottomWidth: 0,
     backgroundColor: colors.tabs.activeBackgroundColor,

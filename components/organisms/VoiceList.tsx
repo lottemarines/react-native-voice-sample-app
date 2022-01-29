@@ -1,34 +1,45 @@
-import React from 'react';
-import {Platform,SafeAreaView, StyleSheet, View,FlatList,Dimensions} from 'react-native';
-import { Button } from 'react-native-elements'
+import React from "react";
+import {
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  View,
+  FlatList,
+  Dimensions,
+} from "react-native";
+import { Button } from "react-native-elements";
 import { ENV } from "config/env";
-import { PublisherBanner } from 'expo-ads-admob';
-import colors, { colorCodes } from 'constants/colors'
+// import { PublisherBanner } from "expo-ads-admob";
+import colors, { colorCodes } from "constants/colors";
 
-const AdMobBunnerId = Platform.OS === 'ios' ? ENV.AdMobBunnerId_iOS : ENV.AdMobBunnerId_Android;
+const AdMobBunnerId =
+  Platform.OS === "ios" ? ENV.AdMobBunnerId_iOS : ENV.AdMobBunnerId_Android;
 
-const screenWidthSize = Dimensions.get('window').width
-const itemWidth = (screenWidthSize - 20) / 2
-const itemHeight = (Dimensions.get('window').height) / 4
+const screenWidthSize = Dimensions.get("window").width;
+const itemWidth = (screenWidthSize - 20) / 2;
+const itemHeight = Dimensions.get("window").height / 4;
 
 export const VoiceList = (props: any) => {
+  const { handlClick, counts, voice_data } = props;
 
-  const {handlClick, counts, voice_data} = props
-
-  const renderItem = ({item, index}: any) => {
-    const disableButton = item.level >= Number(props.counts)
+  const renderItem = ({ item, index }: any) => {
+    const disableButton = item.level >= Number(props.counts);
     return (
       <Button
         disabled={disableButton}
-        disabledStyle={{backgroundColor: colors.buttons.disabledBackgroundColor}}
-        disabledTitleStyle={{color: colors.buttons.disabledTitleColor}}
+        disabledStyle={{
+          backgroundColor: colors.buttons.disabledBackgroundColor,
+        }}
+        disabledTitleStyle={{ color: colors.buttons.disabledTitleColor }}
         titleStyle={styles.buttonText}
         buttonStyle={styles.button}
-        onPress={()=>handlClick(item.music)}
-        title={disableButton ? `残りLv.${item.level - Number(counts)}` : item.title}
+        onPress={() => handlClick(item.music)}
+        title={
+          disableButton ? `残りLv.${item.level - Number(counts)}` : item.title
+        }
       />
-    )
-  }
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,15 +52,14 @@ export const VoiceList = (props: any) => {
           renderItem={renderItem}
         />
       </View>
-      <PublisherBanner
+      {/* <PublisherBanner
         style={styles.fixBanner}
         bannerSize="smartBannerPortrait"
         adUnitID={AdMobBunnerId}
-      />
+      /> */}
     </SafeAreaView>
-  ); 
-}
-
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -74,10 +84,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     margin: 15,
     padding: 0,
-    width: itemWidth-25,
-    height: itemHeight/3,
+    width: itemWidth - 25,
+    height: itemHeight / 3,
     borderRadius: 20,
-    overflow: 'hidden'
+    overflow: "hidden",
   },
-  fixBanner: {position: 'absolute', bottom: 0},
+  fixBanner: { position: "absolute", bottom: 0 },
 });
