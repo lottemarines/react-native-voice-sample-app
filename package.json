@@ -22,7 +22,6 @@
     "babel-preset-expo": "9.0.2",
     "blueimp-md5": "^2.18.0",
     "expo": "^44.0.0",
-    "expo-ads-admob": "~12.0.0",
     "expo-av": "~10.2.0",
     "expo-linear-gradient": "~11.0.0",
     "expo-linking": "~3.0.0",
