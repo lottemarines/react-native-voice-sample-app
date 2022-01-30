@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
-import { requestPermissionsAsync } from "expo-ads-admob";
+// import { requestPermissionsAsync } from "expo-ads-admob";
 import { homeData1 } from "data/homeData1";
 import { startingAd, showReviewWindows, calcCounts } from "utils/mathHelper";
 import { Interstitial } from "utils/adHelper";
@@ -19,7 +19,7 @@ export const SubVoiceScreen = () => {
   const [isConnected, setIsConnected] = useState<boolean>(true);
   const [isNoticedState, setIsNoticedState] = useState<boolean>(false);
   useEffect(() => {
-    requestPermissionsAsync();
+    // requestPermissionsAsync();
     checkStatus();
   }, []);
 
