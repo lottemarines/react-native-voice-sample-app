@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
 // import { requestPermissionsAsync } from "expo-ads-admob";
 import { homeData1 } from "data/homeData1";
 import { startingAd, showReviewWindows, calcCounts } from "utils/mathHelper";
 import { Interstitial } from "utils/adHelper";
 import { makeSound } from "utils/soundHelper";
-import ScrollableTabView, {
-  DefaultTabBar,
-} from "react-native-scrollable-tab-view";
+import { TabView } from "react-native-tab-view";
+import { TabBar } from "components/atoms/TabBar";
 import { VoiceList } from "components/organisms/VoiceList";
-import colors, { colorCodes } from "constants/colors";
 import NetInfo from "@react-native-community/netinfo";
 import GlobalActivityIndicator from "components/atoms/GlobalActivityIndicator";
 
 export const HomeScreen = () => {
   const [isConnected, setIsConnected] = useState<boolean>(true);
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([{ key: "1", title: "1" }]);
   useEffect(() => {
     // requestPermissionsAsync();
     checkStatus();
@@ -31,6 +30,15 @@ export const HomeScreen = () => {
     await checkNet();
   };
 
+  const renderScene = ({ route }: any) => {
+    switch (route.key) {
+      case "1":
+        return <VoiceList handlClick={handlClick} voice_data={homeData1()} />;
+      default:
+        return null;
+    }
+  };
+
   const checkNet = async () => {
     NetInfo.fetch().then((state) => {
       if (state.isConnected == false) {
@@ -42,46 +50,15 @@ export const HomeScreen = () => {
   if (isConnected === false) {
     return <GlobalActivityIndicator />;
   }
+
+  const renderTabBar = (props: any) => <TabBar {...props} />;
+
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollableTabView
-        renderTabBar={() => (
-          <DefaultTabBar
-            style={styles.tabs}
-            tabStyle={styles.tab}
-            underlineStyle={styles.underline}
-            activeTextColor="black"
-            inactiveTextColor="black"
-          />
-        )}
-      >
-        <VoiceList
-          tabLabel="1"
-          handlClick={handlClick}
-          voice_data={homeData1()}
-        />
-      </ScrollableTabView>
-    </SafeAreaView>
+    <TabView
+      renderTabBar={renderTabBar}
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colorCodes.backgroundColor,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  tab: {
-    paddingBottom: 0,
-  },
-  tabs: {
-    width: "100%", // NOTE: Androidでタブが消えてしまうため、設置
-    height: 48,
-    borderBottomWidth: 0,
-    backgroundColor: colors.tabs.activeBackgroundColor,
-  },
-  underline: {
-    backgroundColor: colors.tabs.underlineColor,
-  },
-});

@@ -14,3 +14,9 @@ $ git ad
 $ git commit -m "First commit"
 ## Gitリポジトリ作成し、ReadMe通りにやる
 ```
+
+```
+## 1.0.0リリース後にやること
+expo-ads-admobをインストールしてコメントアウトを外す
+
+```

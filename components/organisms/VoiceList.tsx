@@ -23,21 +23,34 @@ export const VoiceList = (props: any) => {
   const { handlClick, counts, voice_data } = props;
 
   const renderItem = ({ item, index }: any) => {
-    const disableButton = item.level >= Number(props.counts);
+    const disableButton = item.level >= Number(counts);
+    // TODO: 最初はindex === 0の部分を消す。
     return (
-      <Button
-        disabled={disableButton}
-        disabledStyle={{
-          backgroundColor: colors.buttons.disabledBackgroundColor,
-        }}
-        disabledTitleStyle={{ color: colors.buttons.disabledTitleColor }}
-        titleStyle={styles.buttonText}
-        buttonStyle={styles.button}
-        onPress={() => handlClick(item.music)}
-        title={
-          disableButton ? `残りLv.${item.level - Number(counts)}` : item.title
-        }
-      />
+      <>
+        {index === 0 && (
+          <PublisherBanner
+            bannerSize="smartBannerPortrait"
+            adUnitID={AdMobBunnerId}
+          />
+        )}
+        {index > 0 && (
+          <Button
+            disabled={disableButton}
+            disabledStyle={{
+              backgroundColor: colors.buttons.disabledBackgroundColor,
+            }}
+            disabledTitleStyle={{ color: colors.buttons.disabledTitleColor }}
+            titleStyle={styles.buttonText}
+            buttonStyle={index === 1 ? styles.toplistItem : styles.button}
+            onPress={() => handlClick(item.music)}
+            title={
+              disableButton
+                ? `残りLv.${item.level - Number(props.counts)}`
+                : item.title
+            }
+          />
+        )}
+      </>
     );
   };
 
@@ -52,18 +65,13 @@ export const VoiceList = (props: any) => {
           renderItem={renderItem}
         />
       </View>
-      {/* <PublisherBanner
-        style={styles.fixBanner}
-        bannerSize="smartBannerPortrait"
-        adUnitID={AdMobBunnerId}
-      /> */}
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colorCodes.backgroundColor,
+    backgroundColor: colorCodes.totalColor,
     flex: 1,
   },
   text: {
@@ -71,13 +79,14 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: colors.buttons.titleColor,
+    color: "black",
   },
   body: {
-    backgroundColor: colorCodes.backgroundColor,
+    backgroundColor: colorCodes.totalColor,
   },
   sectionContainer: {
-    padding: 8,
+    padding: 0,
+    margin: 0,
   },
   button: {
     backgroundColor: colors.buttons.backgroundColor,
@@ -89,5 +98,17 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: "hidden",
   },
-  fixBanner: { position: "absolute", bottom: 0 },
+  toplistItem: {
+    backgroundColor: "#d0dba2",
+    flexGrow: 1,
+    marginTop: 0,
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 15,
+    padding: 0,
+    width: itemWidth - 25,
+    height: itemHeight / 3,
+    borderRadius: 20,
+    overflow: "hidden",
+  },
 });
