@@ -28,9 +28,7 @@
     "production": {
       "ios": {
         "appleId": "lottemarines3@gmail.com",
-        "ascAppId": "",
         "appleTeamId": "WQU45FND6W",
-        "sku": "",
         "language": "ja-JP"
       },
       "android": {
